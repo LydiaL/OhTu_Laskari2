@@ -1,8 +1,5 @@
 package ohtu.verkkokauppa;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-
 public class Kauppa {
 
     private Varasto varasto;
@@ -12,9 +9,6 @@ public class Kauppa {
     private String kaupanTili;
 
     public Kauppa(Varasto va, Pankki pa, Viitegeneraattori vg) {
-//        varasto = (Varasto) ctx.getBean("varasto");
-//        pankki = (Pankki) ctx.getBean("pankki");
-//        viitegeneraattori = (Viitegeneraattori) ctx.getBean("viitegeneraattori");
         varasto = va;
         pankki = pa;
         viitegeneraattori = vg;
