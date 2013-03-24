@@ -10,13 +10,14 @@ public class Kauppa {
     private Ostoskori ostoskori;
     private Viitegeneraattori viitegeneraattori;
     private String kaupanTili;
-    
-    ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/spring-context.xml");
 
-    public Kauppa() {
-        varasto = ctx.getBean(Varasto.class);
-        pankki = ctx.getBean(Pankki.class);
-        viitegeneraattori = ctx.getBean(Viitegeneraattori.class);
+    public Kauppa(Varasto va, Pankki pa, Viitegeneraattori vg) {
+//        varasto = (Varasto) ctx.getBean("varasto");
+//        pankki = (Pankki) ctx.getBean("pankki");
+//        viitegeneraattori = (Viitegeneraattori) ctx.getBean("viitegeneraattori");
+        varasto = va;
+        pankki = pa;
+        viitegeneraattori = vg;
         kaupanTili = "33333-44455";
     }
 
@@ -25,13 +26,13 @@ public class Kauppa {
     }
 
     public void poistaKorista(int id) {
-        Tuote t = varasto.haeTuote(id); 
+        Tuote t = varasto.haeTuote(id);
         varasto.palautaVarastoon(t);
     }
 
     public void lisaaKoriin(int id) {
-        if (varasto.saldo(id)>0) {
-            Tuote t = varasto.haeTuote(id);             
+        if (varasto.saldo(id) > 0) {
+            Tuote t = varasto.haeTuote(id);
             ostoskori.lisaa(t);
             varasto.otaVarastosta(t);
         }
@@ -40,8 +41,7 @@ public class Kauppa {
     public boolean tilimaksu(String nimi, String tiliNumero) {
         int viite = viitegeneraattori.uusi();
         int summa = ostoskori.hinta();
-        
+
         return pankki.tilisiirto(nimi, viite, tiliNumero, kaupanTili, summa);
     }
-
 }
