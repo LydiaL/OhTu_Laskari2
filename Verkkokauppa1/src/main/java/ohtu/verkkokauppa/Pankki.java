@@ -1,11 +1,16 @@
 package ohtu.verkkokauppa;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
 public class Pankki implements PankkiInterface {
 
     private Kirjanpito kirjanpito;
+    
+    ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/spring-context.xml");
 
-    public Pankki(Kirjanpito k) {
-        kirjanpito = k;
+    public Pankki() {
+        kirjanpito = ctx.getBean(Kirjanpito.class);
     }
 
     @Override

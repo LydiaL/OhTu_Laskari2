@@ -1,5 +1,8 @@
 package ohtu.verkkokauppa;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
 public class Kauppa {
 
     private Varasto varasto;
@@ -7,11 +10,13 @@ public class Kauppa {
     private Ostoskori ostoskori;
     private Viitegeneraattori viitegeneraattori;
     private String kaupanTili;
+    
+    ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/spring-context.xml");
 
-    public Kauppa(Varasto v, Pankki p, Viitegeneraattori vg) {
-        varasto = v;
-        pankki = p;
-        viitegeneraattori = vg;
+    public Kauppa() {
+        varasto = ctx.getBean(Varasto.class);
+        pankki = ctx.getBean(Pankki.class);
+        viitegeneraattori = ctx.getBean(Viitegeneraattori.class);
         kaupanTili = "33333-44455";
     }
 

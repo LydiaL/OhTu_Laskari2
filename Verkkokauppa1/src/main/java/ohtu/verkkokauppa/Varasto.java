@@ -1,14 +1,18 @@
 package ohtu.verkkokauppa;
 
 import java.util.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class Varasto implements VarastoInterface {
 
     private Kirjanpito kirjanpito;
     private HashMap<Tuote, Integer> saldot;
+    
+    ApplicationContext ctx = new FileSystemXmlApplicationContext("src/main/resources/spring-context.xml");
 
-    public Varasto(Kirjanpito k) {
-        kirjanpito = k;
+    public Varasto() {
+        kirjanpito = kirjanpito = ctx.getBean(Kirjanpito.class);
         saldot = new HashMap<Tuote, Integer>();
         alustaTuotteet();
     }
